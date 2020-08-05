@@ -44,18 +44,14 @@
                 </el-table-column>
                 <el-table-column label="操作" width="180">
                     <template v-slot="scope">
-                        <!-- 修改按钮 -->
                         <el-tooltip class="item" effect="dark" content="修改" placement="top" :enterable="false">
                             <el-button type="primary" icon="el-icon-edit" size="mini" @click="findUserById(scope.row)">
                             </el-button>
                         </el-tooltip>
-                        <!-- 删除按钮 -->
                         <el-tooltip class="item" effect="dark" content="删除" placement="top" :enterable="false">
-                            <el-button type="danger" icon="el-icon-delete" size="mini"
-                                @click="removeUserById(scope.row.id)"></el-button>
+                            <el-button type="danger" icon="el-icon-delete" size="mini"></el-button>
                         </el-tooltip>
-                        <!-- 设置按钮 -->
-                        <el-tooltip class=" item" effect="dark" content="设置" placement="top" :enterable="false">
+                        <el-tooltip class="item" effect="dark" content="设置" placement="top" :enterable="false">
                             <el-button type="warning" icon="el-icon-setting" size="mini"></el-button>
                         </el-tooltip>
                     </template>
@@ -90,21 +86,21 @@
             </span>
         </el-dialog>
         <!-- 修改用户信息 -->
-        <el-dialog title="修改用户" :visible.sync="modifyDialogVisible" width="50%" @close="modifyDialogClose">
-            <el-form label-width="100px" :model="modifyUserForm" :rules="rules" ref="modifyUserFormRef">
+        <el-dialog title="提示" :visible.sync="modifyDialogVisible" width="30%">
+            <el-form label-width="100px">
                 <el-form-item label="用户名">
-                    <el-input v-model="modifyUserForm.username" :disabled="true"></el-input>
+                    <el-input></el-input>
                 </el-form-item>
-                <el-form-item label="邮箱" prop="email">
-                    <el-input v-model="modifyUserForm.email"></el-input>
+                <el-form-item label="邮箱">
+                    <el-input></el-input>
                 </el-form-item>
-                <el-form-item label="电话" prop="mobile">
-                    <el-input v-model="modifyUserForm.mobile"></el-input>
+                <el-form-item label="手机">
+                    <el-input></el-input>
                 </el-form-item>
             </el-form>
-            <span slot="footer" class="dialog-footer">
-                <el-button @click="modifyDialogVisible = false">取 消</el-button>
-                <el-button type="primary" @click="submitModifyForm('modifyUserFormRef')">确 定</el-button>
+            <span slot="footer" :model="modifyUserForm" class="dialog-footer">
+                <el-button @click="dialogVisible = false">取 消</el-button>
+                <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
             </span>
         </el-dialog>
     </div>
@@ -225,65 +221,12 @@
                 // this.$refs[addUserFormRef].resetFields()如果没有传参这句话会出错
                 this.$refs.addUserFormRef.resetFields();
             },
-            // 通过Id查询用户
-            async findUserById(user) {
+            findUserById(user) {
+                console.log(user.id);
                 this.modifyDialogVisible = true;
-                const { data: res } = await this.$http.get(`users/${user.id}`);
-                if (res.meta.status != 200) {
-                    return this.$message.error("获取信息失败");
-                }
-                this.modifyUserForm = res.data;
-                console.log(this.modifyUserForm);
-            },
-            modifyDialogClose() {
-                // this.$refs[addUserFormRef].resetFields()如果没有传参这句话会出错
-                this.$refs.modifyUserFormRef.resetFields();
-            },
-            // 提交修改之后的用户表单
-            submitModifyForm(modifyUserFormRef) {
-                this.$refs[modifyUserFormRef].validate(async (valid) => {
-                    if (valid) {
-                        const { data: res } = await this.$http.put(`users/${this.modifyUserForm.id}`, this.modifyUserForm)
-                        this.modifyDialogVisible = false;
-                        if (res.meta.status != 200) {
-                            return this.$message.error("提交修改信息失败");
-                        }
-                        this.getUserList();
-                        return this.$message.success("提交修改信息成功");
-                    } else {
-                        return this.$message.error("添加失败,注意查看规则");
-                    }
-                })
-            },
-            // 删除用户
-            // async deleteUserById(user) {
-            //     const { data: res } = await this.$http.delete(`users/${user.id}`);
-            //     if (res.meta.status != 200) {
-            //         return this.$message.error("删除失败");
-            //     }
-            //     this.getUserList();
-            //     return this.$message.success("删除成功");
-            // }
-            async removeUserById(id) {
-                const confirmResult = await this.$confirm('是否删除该用户?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).catch((error) => {
-                    return error;
-                });
-                if (confirmResult !== "confirm") {
-                    return this.$message.info("已经取消删除");
-                }
-                const { data: res } = await this.$http.delete("users/" + id);
-                if (res.meta.status != 200) {
-                    return this.$message.error("删除失败");
-                }
-                this.getUserList();
-                return this.$message.success("删除成功");
             }
-        }
 
+        }
     }
 </script>
 <style scoped></style>

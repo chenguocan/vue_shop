@@ -52,7 +52,7 @@
                         <!-- 删除按钮 -->
                         <el-tooltip class="item" effect="dark" content="删除" placement="top" :enterable="false">
                             <el-button type="danger" icon="el-icon-delete" size="mini"
-                                @click="removeUserById(scope.row.id)"></el-button>
+                                @click="deleteUserById(scope.row)"></el-button>
                         </el-tooltip>
                         <!-- 设置按钮 -->
                         <el-tooltip class=" item" effect="dark" content="设置" placement="top" :enterable="false">
@@ -90,9 +90,9 @@
             </span>
         </el-dialog>
         <!-- 修改用户信息 -->
-        <el-dialog title="修改用户" :visible.sync="modifyDialogVisible" width="50%" @close="modifyDialogClose">
+        <el-dialog title="修改用户" :visible.sync="modifyDialogVisible" width="50%">
             <el-form label-width="100px" :model="modifyUserForm" :rules="rules" ref="modifyUserFormRef">
-                <el-form-item label="用户名">
+                <el-form-item label="用户名" prop="username">
                     <el-input v-model="modifyUserForm.username" :disabled="true"></el-input>
                 </el-form-item>
                 <el-form-item label="邮箱" prop="email">
@@ -235,16 +235,16 @@
                 this.modifyUserForm = res.data;
                 console.log(this.modifyUserForm);
             },
-            modifyDialogClose() {
-                // this.$refs[addUserFormRef].resetFields()如果没有传参这句话会出错
-                this.$refs.modifyUserFormRef.resetFields();
-            },
+            // modifyDialogClosed() {
+            //     // this.$refs[addUserFormRef].resetFields()如果没有传参这句话会出错
+            //     this.$refs.modifyUserFormRef.resetFields();
+            // },
             // 提交修改之后的用户表单
             submitModifyForm(modifyUserFormRef) {
                 this.$refs[modifyUserFormRef].validate(async (valid) => {
                     if (valid) {
-                        const { data: res } = await this.$http.put(`users/${this.modifyUserForm.id}`, this.modifyUserForm)
                         this.modifyDialogVisible = false;
+                        const { data: res } = await this.$http.put(`users/${this.modifyUserForm.id}`, this.modifyUserForm)
                         if (res.meta.status != 200) {
                             return this.$message.error("提交修改信息失败");
                         }
@@ -256,34 +256,16 @@
                 })
             },
             // 删除用户
-            // async deleteUserById(user) {
-            //     const { data: res } = await this.$http.delete(`users/${user.id}`);
-            //     if (res.meta.status != 200) {
-            //         return this.$message.error("删除失败");
-            //     }
-            //     this.getUserList();
-            //     return this.$message.success("删除成功");
-            // }
-            async removeUserById(id) {
-                const confirmResult = await this.$confirm('是否删除该用户?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).catch((error) => {
-                    return error;
-                });
-                if (confirmResult !== "confirm") {
-                    return this.$message.info("已经取消删除");
-                }
-                const { data: res } = await this.$http.delete("users/" + id);
+            async deleteUserById(user) {
+                const { data: res } = await this.$http.delete(`users/${user.id}`);
                 if (res.meta.status != 200) {
                     return this.$message.error("删除失败");
                 }
                 this.getUserList();
                 return this.$message.success("删除成功");
             }
-        }
 
+        }
     }
 </script>
 <style scoped></style>

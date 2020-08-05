@@ -29,6 +29,6 @@ Vue.use(Switch);
 Vue.use(Tooltip);
 Vue.use(Pagination)
 Vue.use(Dialog);
+Vue.use(MessageBox);
 Vue.prototype.$message = Message
-Vue.prototype.$confirm = MessageBox.confirm
 

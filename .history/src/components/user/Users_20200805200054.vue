@@ -272,10 +272,10 @@
                 }).catch((error) => {
                     return error;
                 });
-                if (confirmResult !== "confirm") {
+                if (confirmResult !== confirm) {
                     return this.$message.info("已经取消删除");
                 }
-                const { data: res } = await this.$http.delete("users/" + id);
+                const { data: res } = await this.$http.delete("users" + id);
                 if (res.meta.status != 200) {
                     return this.$message.error("删除失败");
                 }
