@@ -109,20 +109,14 @@
             </span>
         </el-dialog>
         <!-- 分配角色对话框 -->
-        <el-dialog title="分配角色" :visible.sync="setRoleDialogVisible" width="50%" @close="setRoleDialogClosed">
+        <el-dialog title="分配角色" :visible.sync="setRoleDialogVisible" width="50%">
             <div>
                 <p>当前的用户:{{userInfo.username}}</p>
                 <p>当前的角色:{{userInfo.role_name}}</p>
-                <p>分配新角色:
-                    <el-select placeholder="请选择" v-model="selectedRoleId">
-                        <el-option v-for="item in rolesList" :key="item.id" :label="item.roleName" :value="item.id">
-                        </el-option>
-                    </el-select>
-                </p>
             </div>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="setRoleDialogVisible = false">取 消</el-button>
-                <el-button type="primary" @click="saveRoleInfo">确 定</el-button>
+                <el-button type="primary" @click="setRoleDialogVisible = false">确 定</el-button>
             </span>
         </el-dialog>
     </div>
@@ -159,8 +153,6 @@
                 addDialogVisible: false,
                 modifyDialogVisible: false,
                 setRoleDialogVisible: false,
-                // 已选中的ID值
-                selectedRoleId: "",
                 // 需要被分配角色的用户信息
                 userInfo: {},
                 // 所有角色的数据列表
@@ -318,22 +310,6 @@
                 this.rolesList = res.data;
                 console.log(this.rolesList);
                 this.setRoleDialogVisible = true;
-            },
-            async saveRoleInfo() {
-                if (!this.selectedRoleId) {
-                    return this.$message.error("请选择要分配的角色");
-                }
-                const { data: res } = await this.$http.put("users/" + this.userInfo.id + "/role", { rid: this.selectedRoleId });
-                if (res.meta.status !== 200) {
-                    return this.$message.error("更新角色失败");
-                }
-                this.$message.success("更新成功");
-                this.getUserList();
-                this.setRoleDialogVisible = false;
-            },
-            setRoleDialogClosed() {
-                this.selectedRoleId = "";
-                this.userInfo = {}
             }
         }
 

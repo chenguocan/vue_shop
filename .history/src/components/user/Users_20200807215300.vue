@@ -332,8 +332,8 @@
                 this.setRoleDialogVisible = false;
             },
             setRoleDialogClosed() {
-                this.selectedRoleId = "";
-                this.userInfo = {}
+                this.selectedRoleId = "",
+                    this.userInfo = {}
             }
         }
 

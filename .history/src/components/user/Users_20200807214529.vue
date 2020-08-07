@@ -109,7 +109,7 @@
             </span>
         </el-dialog>
         <!-- 分配角色对话框 -->
-        <el-dialog title="分配角色" :visible.sync="setRoleDialogVisible" width="50%" @close="setRoleDialogClosed">
+        <el-dialog title="分配角色" :visible.sync="setRoleDialogVisible" width="50%">
             <div>
                 <p>当前的用户:{{userInfo.username}}</p>
                 <p>当前的角色:{{userInfo.role_name}}</p>
@@ -330,10 +330,6 @@
                 this.$message.success("更新成功");
                 this.getUserList();
                 this.setRoleDialogVisible = false;
-            },
-            setRoleDialogClosed() {
-                this.selectedRoleId = "";
-                this.userInfo = {}
             }
         }
 

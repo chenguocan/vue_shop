@@ -289,7 +289,7 @@
                 }
                 this.getRolesList();
                 this.setRightDialogVisible = false;
-                this.$message.success("分配权限成功");
+                this.$message.error("分配权限成功");
             }
         }
     }

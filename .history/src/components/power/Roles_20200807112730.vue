@@ -288,8 +288,8 @@
                     return this.$message.error("分配权限失败");
                 }
                 this.getRolesList();
-                this.setRightDialogVisible = false;
-                this.$message.success("分配权限成功");
+                setRightDialogVisible = false;
+                this.$message.error("分配权限成功");
             }
         }
     }

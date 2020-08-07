@@ -109,12 +109,12 @@
             </span>
         </el-dialog>
         <!-- 分配角色对话框 -->
-        <el-dialog title="分配角色" :visible.sync="setRoleDialogVisible" width="50%" @close="setRoleDialogClosed">
+        <el-dialog title="分配角色" :visible.sync="setRoleDialogVisible" width="50%">
             <div>
                 <p>当前的用户:{{userInfo.username}}</p>
                 <p>当前的角色:{{userInfo.role_name}}</p>
                 <p>分配新角色:
-                    <el-select placeholder="请选择" v-model="selectedRoleId">
+                    <el-select placeholder="请选择" v-model="selectedRoleId" @change="changeSelect">
                         <el-option v-for="item in rolesList" :key="item.id" :label="item.roleName" :value="item.id">
                         </el-option>
                     </el-select>
@@ -323,17 +323,13 @@
                 if (!this.selectedRoleId) {
                     return this.$message.error("请选择要分配的角色");
                 }
-                const { data: res } = await this.$http.put("users/" + this.userInfo.id + "/role", { rid: this.selectedRoleId });
+                const { data: res } = this.$http.put("users/" + this.userInfo.id + "/role", { rid: this.selectedRoleId });
                 if (res.meta.status !== 200) {
                     return this.$message.error("更新角色失败");
                 }
                 this.$message.success("更新成功");
                 this.getUserList();
                 this.setRoleDialogVisible = false;
-            },
-            setRoleDialogClosed() {
-                this.selectedRoleId = "";
-                this.userInfo = {}
             }
         }
 

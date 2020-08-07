@@ -124,8 +124,6 @@
                 // 默认选中的
                 defKeys: [],
                 rightsList: [],
-                // 当前即将分配权限的ID
-                roleId: "",
                 addroleList: {
                     roleName: "",
                     roleDesc: "",
@@ -252,7 +250,6 @@
             },
             async showSetRightDialog(role) {
                 //获取所有权限数据
-                this.roleId = role.id;
                 const { data: res } = await this.$http.get("rights/tree");
                 console.log(res);
                 if (res.meta.status !== 200) {
@@ -277,19 +274,12 @@
                 this.defKeys = [];
             },
             // 为角色分配权限
-            async allotRights() {
+            allotRights() {
                 const keys = [
                     ...this.$refs.treeRef.getCheckedKeys(),
                     ...this.$refs.treeRef.getHalfCheckedKeys(),
                 ];
-                const idStr = keys.join(",");
-                const { data: res } = await this.$http.post(`roles/${this.roleId}/rights`, { rids: idStr })
-                if (res.meta.status !== 200) {
-                    return this.$message.error("分配权限失败");
-                }
-                this.getRolesList();
-                this.setRightDialogVisible = false;
-                this.$message.success("分配权限成功");
+                console.log(keys);
             }
         }
     }

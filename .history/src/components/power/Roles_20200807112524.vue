@@ -277,19 +277,13 @@
                 this.defKeys = [];
             },
             // 为角色分配权限
-            async allotRights() {
+            allotRights() {
                 const keys = [
                     ...this.$refs.treeRef.getCheckedKeys(),
                     ...this.$refs.treeRef.getHalfCheckedKeys(),
                 ];
                 const idStr = keys.join(",");
-                const { data: res } = await this.$http.post(`roles/${this.roleId}/rights`, { rids: idStr })
-                if (res.meta.status !== 200) {
-                    return this.$message.error("分配权限失败");
-                }
-                this.getRolesList();
-                this.setRightDialogVisible = false;
-                this.$message.success("分配权限成功");
+                const { data: res } = this.$http.post(`roles/${this.roleId}/rights`, { rids: idStr })
             }
         }
     }
