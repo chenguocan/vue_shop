@@ -2,7 +2,9 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
 import './plugins/element.js';
-import axios from "axios"
+import axios from "axios";
+
+import moment from "moment"
 //导入全局样式表
 import './assets/css/global.css';
 //导入字体图标
@@ -20,6 +22,20 @@ axios.interceptors.request.use((config) => {
 Vue.component("tree-table", TreeTable);
 // 设置axios原型
 Vue.prototype.$http = axios;
+//设置格式化时间原型
+moment.locale('zh-cn');
+Vue.filter('format',function(val){
+  const dt=new Date(val);
+  const y=dt.getFullYear();
+  const m=(dt.getMonth()+1+"").padStart(2,"0");
+  const d=(dt.getDate()+"").padStart(2,"0");
+
+  const hh=(dt.getHours()+"").padStart(2,"0");
+  const mm=(dt.getMinutes()+"").padStart(2,"0");
+  const ss=(dt.getSeconds()+"").padStart(2,"")
+  return `${y}-${m}-${d} ${hh}-${mm}-${ss}`
+})
+
 new Vue({
   router,
   render: (h) => h(App),
