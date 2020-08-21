@@ -1,0 +1,86 @@
+/*全局样式表*/
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  min-width: 1366px;
+}
+.el-breadcrumb{
+  margin-bottom: 15px;
+}
+.el-card{
+  box-shadow: 0 1px 1px rgba(0,0,0,0.15) !important;
+}
+.el-table{
+  margin-top: 15px;
+  font-size: 12px;
+}
+.el-pagination{
+  margin-top: 15px;
+}
+.el-steps{
+  margin:15px 0;
+}
+.el-step__title{
+  font-size: 13px;
+}
+
+.el-cascader-menu {
+  height: 300px;
+  width: 100%;
+}
+.ql-editor{
+  min-height: 300px;
+}
+.el-container {
+  height: 100%;
+}
+
+.el-header {
+  background-color: #373d41;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 0;
+  color: #fff;
+  font-size: 20px;
+}
+
+.el-header>div {
+  display: flex;
+  align-items: center;
+}
+
+.el-header>div>span {
+  margin-left: 15px;
+}
+
+.el-aside {
+  background-color: #333744;
+
+}
+
+.el-aside>.el-menu {
+  border: 0px;
+}
+
+.el-main {
+  background-color: #eaedf1;
+
+}
+
+.iconfont {
+  margin-right: 10px;
+}
+
+.toggle-button {
+  color: white;
+  background-color: #4A5064;
+  line-height: 24px;
+  font-size: 10px;
+  text-align: center;
+  letter-spacing: 0.2em;
+  cursor: pointer;
+}

@@ -3,7 +3,7 @@ import {
     Form, FormItem, Button, Input, Message, Popconfirm, Container, Header, Aside, Main, Footer
     , Menu, MenuItem, Submenu, MenuItemGroup, Col, Row, Breadcrumb, BreadcrumbItem, Card, Table,
     TableColumn, Switch, Tooltip, Pagination, Dialog, MessageBox, Tag, Tree, Select, Option, Cascader,
-    Alert,Step,Steps,Tabs,TabPane
+    Alert,Step,Steps,Tabs,TabPane,Checkbox,CheckboxGroup,Upload,Timeline,TimelineItem
 } from 'element-ui';
 Vue.use(Button);
 Vue.use(Form);
@@ -40,5 +40,10 @@ Vue.use(Step);
 Vue.use(Steps);
 Vue.use(Tabs);
 Vue.use(TabPane);
+Vue.use(Checkbox);
+Vue.use(CheckboxGroup);
+Vue.use(Upload);
+Vue.use(Timeline);
+Vue.use(TimelineItem)
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm
