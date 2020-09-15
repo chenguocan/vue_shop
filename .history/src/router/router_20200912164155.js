@@ -60,7 +60,7 @@ const routes = [
     },
     {
         path: "/index",
-        component: Index,
+        component: index,
     },
     {
         path: "/home",

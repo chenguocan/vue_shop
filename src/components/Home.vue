@@ -1,9 +1,9 @@
 <template>
     <el-container class="home-container">
         <!-- 头部区域 -->
-        <el-header height="500">
+        <el-header>
             <div>
-                <img src="../assets/heima.png" alt="">
+ <!--               <img src="../assets/heima.jpg" alt="">-->
                 <span>电商后台管理系统</span>
             </div>
             <div class="exit">

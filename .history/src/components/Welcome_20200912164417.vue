@@ -1,11 +1,11 @@
 <template>
     <div>
         <h3>Welcome</h3>
-        <div>
+        <el-container>
             <el-header>Header</el-header>
             <el-main>Main</el-main>
             <el-footer>Footer</el-footer>
-        </div>
+        </el-container>
     </div>
 </template>
 <script></script>
